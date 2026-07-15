@@ -35,37 +35,30 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             max-width: 90%;
-            width: 450px;
+            width: 460px;
             animation: fadeIn 2s ease-out;
         }
 
-        /* Imagen de fondo o foto de ustedes */
-        .photo-container {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px auto;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 3px solid #ff7eb3;
-            box-shadow: 0 0 15px rgba(255, 126, 179, 0.5);
-        }
-
-        .photo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Frase de conquista */
+        /* Título */
         h1 {
             font-size: 1.6rem;
-            margin-bottom: 25px;
-            line-height: 1.4;
+            margin-bottom: 15px;
+            line-height: 1.3;
             text-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
             background: linear-gradient(45deg, #ff758c 0%, #ff7eb3 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: bold;
+        }
+
+        /* Tu frase especial */
+        .frase-especial {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #f3e8f4;
+            margin-bottom: 25px;
+            text-align: center;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
         }
 
         /* Reproductor de Spotify */
@@ -106,13 +99,11 @@
 <body>
 
     <div class="container">
-        <!-- Espacio para la foto. Puedes cambiar el enlace "src" por el tuyo -->
-        <div class="photo-container">
-            <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300&auto=format&fit=crop" alt="Foto especial">
-        </div>
-
-        <!-- Tu frase personalizada -->
-        <h1>De todas las formas posibles de llamarte, mi favorita siempre será "mía". Eres cada uno de mis pensamientos bonitos... ✨</h1>
+        <h1>Para mi personita especial ✨</h1>
+        
+        <p class="frase-especial">
+            Yo sé que muy pronto voy a ser algo tuyo. No sé cuánto tiempo pase, pero tengo la esperanza de que algún día me dejes entrar en ese corazoncito tan duro que dices tener. Quiero demostrarte con hechos que valgo la pena, hacerte sonreír, cuidarte y estar contigo en los buenos y malos momentos. Poco a poco voy a ganarme un lugar en tu vida y en tu corazón, porque cuando alguien de verdad importa, vale la pena esperar. ❤️
+        </p>
         
         <!-- Reproductor Embebido de Spotify -->
         <div class="spotify-player">
@@ -128,7 +119,7 @@
     </div>
 
     <script>
-        // Lista de palabras y emojis flotantes
+        // Lista de tus palabras y emojis
         const palabras = [
             "niña ❤️", "Mi princesita 👑", "Mi hermosa 🌹", "Mi bonita 🌸", 
             "Mi reina 👑", "Mi vida 💖", "Mi cielo ☁️", "Mi luz ✨", 
