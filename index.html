@@ -39,7 +39,7 @@
             animation: fadeIn 2s ease-out;
         }
 
-        /* Título con brillo de neón romántico */
+        /* Título con brillo de neón */
         h1 {
             font-size: 1.8rem;
             margin-bottom: 20px;
@@ -72,7 +72,27 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Elementos mágicos que caen (Corazones y destellos) */
+        /* Ramos de flores a los lados */
+        .flowers {
+            position: absolute;
+            bottom: 40px;
+            font-size: 4.5rem;
+            z-index: 5;
+            filter: drop-shadow(0 0 15px rgba(255, 105, 180, 0.4));
+            animation: floatFlowers 5s ease-in-out infinite alternate;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .flowers-left {
+            left: 5%;
+        }
+
+        .flowers-right {
+            right: 5%;
+        }
+
+        /* Elementos mágicos que caen */
         .falling-heart {
             position: absolute;
             top: -50px;
@@ -81,6 +101,16 @@
             text-shadow: 0 0 10px rgba(255, 105, 180, 0.4);
             animation: fall linear forwards;
             z-index: 1;
+        }
+
+        /* Animación para que las flores se muevan suavemente */
+        @keyframes floatFlowers {
+            0% {
+                transform: translateY(0) rotate(-4deg) scale(1);
+            }
+            100% {
+                transform: translateY(-15px) rotate(4deg) scale(1.05);
+            }
         }
 
         @keyframes fall {
@@ -109,9 +139,26 @@
             0% { filter: drop-shadow(0 0 2px rgba(255,107,139,0.3)); }
             100% { filter: drop-shadow(0 0 12px rgba(255,107,139,0.8)); }
         }
+
+        /* Ajustes para celulares */
+        @media (max-width: 768px) {
+            .flowers {
+                font-size: 2.8rem;
+                bottom: 20px;
+            }
+            .flowers-left {
+                left: 2%;
+            }
+            .flowers-right {
+                right: 2%;
+            }
+        }
     </style>
 </head>
 <body>
+
+    <!-- Ramo de flores izquierdo -->
+    <div class="flowers flowers-left">🌸🌹💐</div>
 
     <div class="container">
         <h1>Para mi personita especial ✨</h1>
@@ -133,8 +180,11 @@
         </div>
     </div>
 
+    <!-- Ramo de flores derecho -->
+    <div class="flowers flowers-right">💐🌹🌸</div>
+
     <script>
-        // Lista de corazones y destellos ultra románticos
+        // Lista de corazones y destellos
         const corazones = ["❤️", "💖", "✨", "💕", "💘", "🌸", "💗"];
 
         function crearCorazonCaido() {
@@ -162,13 +212,13 @@
 
             document.body.appendChild(span);
 
-            // Eliminar el elemento al terminar para no alentar el navegador
+            // Eliminar el elemento al terminar
             setTimeout(() => {
                 span.remove();
             }, duration * 1000);
         }
 
-        // Crea un nuevo corazón cada 500ms para que se vea tupido y hermoso
+        // Crea un nuevo corazón cada 500ms
         setInterval(crearCorazonCaido, 500);
 
         // Iniciar con unos cuantos corazones flotando ya en pantalla
