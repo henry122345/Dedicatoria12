@@ -39,9 +39,26 @@
             animation: fadeIn 2s ease-out;
         }
 
+        /* Imagen de fondo o foto de ustedes */
+        .photo-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px auto;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #ff7eb3;
+            box-shadow: 0 0 15px rgba(255, 126, 179, 0.5);
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         /* Frase de conquista */
         h1 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             margin-bottom: 25px;
             line-height: 1.4;
             text-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
@@ -89,6 +106,12 @@
 <body>
 
     <div class="container">
+        <!-- Espacio para la foto. Puedes cambiar el enlace "src" por el tuyo -->
+        <div class="photo-container">
+            <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300&auto=format&fit=crop" alt="Foto especial">
+        </div>
+
+        <!-- Tu frase personalizada -->
         <h1>De todas las formas posibles de llamarte, mi favorita siempre será "mía". Eres cada uno de mis pensamientos bonitos... ✨</h1>
         
         <!-- Reproductor Embebido de Spotify -->
@@ -105,7 +128,7 @@
     </div>
 
     <script>
-        // Lista de tus palabras y emojis
+        // Lista de palabras y emojis flotantes
         const palabras = [
             "niña ❤️", "Mi princesita 👑", "Mi hermosa 🌹", "Mi bonita 🌸", 
             "Mi reina 👑", "Mi vida 💖", "Mi cielo ☁️", "Mi luz ✨", 
