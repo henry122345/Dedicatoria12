@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi personita especial ❤️</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: radial-gradient(circle, #1a081f 0%, #08020a 100%);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            position: relative;
+        }
+
+        /* Contenedor principal */
+        .container {
+            text-align: center;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(8px);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            max-width: 90%;
+            width: 450px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        /* Frase de conquista */
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            line-height: 1.4;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
+            background: linear-gradient(45deg, #ff758c 0%, #ff7eb3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+
+        /* Reproductor de Spotify */
+        .spotify-player {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            margin-top: 15px;
+        }
+
+        /* Estilo de las palabras que caen */
+        .falling-word {
+            position: absolute;
+            top: -50px;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.1rem;
+            font-weight: 500;
+            pointer-events: none;
+            white-space: nowrap;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            animation: fall linear forwards;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(15deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>De todas las formas posibles de llamarte, mi favorita siempre será "mía". Eres cada uno de mis pensamientos bonitos... ✨</h1>
+        
+        <!-- Reproductor Embebido de Spotify -->
+        <div class="spotify-player">
+            <iframe src="https://open.spotify.com/embed/track/0sGZWfVTPWIv6qbWZZ7cdT?utm_source=generator&theme=0" 
+                    width="100%" 
+                    height="152" 
+                    frameBorder="0" 
+                    allowfullscreen="" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy">
+            </iframe>
+        </div>
+    </div>
+
+    <script>
+        // Lista de tus palabras y emojis
+        const palabras = [
+            "niña ❤️", "Mi princesita 👑", "Mi hermosa 🌹", "Mi bonita 🌸", 
+            "Mi reina 👑", "Mi vida 💖", "Mi cielo ☁️", "Mi luz ✨", 
+            "Mi personita 🫶", "Mi consentida 💕", "Mi angelito 😇", 
+            "Mi tesoro 💎", "Mi estrella ⭐", "Mi sol ☀️", 
+            "Mi muñequita 🧸", "Mi flor 🌺"
+        ];
+
+        function crearPalabraCaida() {
+            const span = document.createElement('span');
+            span.classList.add('falling-word');
+            
+            // Elegir una palabra al azar
+            span.innerText = palabras[Math.floor(Math.random() * palabras.length)];
+            
+            // Posición horizontal aleatoria
+            span.style.left = Math.random() * 90 + '%';
+            
+            // Tamaño de letra ligeramente variable para dar profundidad
+            const size = 0.8 + Math.random() * 0.6; // Entre 0.8rem y 1.4rem
+            span.style.fontSize = size + 'rem';
+            
+            // Velocidad de caída aleatoria (más suave)
+            const duration = 6 + Math.random() * 6; // Entre 6 y 12 segundos
+            span.style.animationDuration = duration + 's';
+            
+            // Opacidad inicial variable
+            span.style.opacity = 0.4 + Math.random() * 0.6;
+
+            document.body.appendChild(span);
+
+            // Eliminar el elemento cuando termine la animación para no saturar el navegador
+            setTimeout(() => {
+                span.remove();
+            }, duration * 1000);
+        }
+
+        // Crear una nueva palabra cayendo cada 700 milisegundos
+        setInterval(crearPalabraCaida, 700);
+
+        // Crear las primeras palabras inmediatamente al cargar
+        for (let i = 0; i < 6; i++) {
+            setTimeout(crearPalabraCaida, i * 300);
+        }
+    </script>
+</body>
+</html>
