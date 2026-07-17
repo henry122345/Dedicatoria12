@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Ti ❤️</title>
+    <title>Para Mi Niña Linda ❤️</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
             margin: 0;
             padding: 0;
-            background-color: #fce4ec;
-            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffebee 0%, #fce4ec 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -17,15 +20,14 @@
             overflow: hidden;
         }
 
-        /* Contenedor del libro */
-        .book {
-            width: 340px;
-            height: 450px;
+        /* Contenedor del Libro interactivo */
+        .book-container {
+            width: 360px;
+            height: 480px;
             position: relative;
-            perspective: 1500px;
+            perspective: 2000px;
         }
 
-        /* Estilo de cada página */
         .page {
             width: 100%;
             height: 100%;
@@ -33,106 +35,295 @@
             top: 0;
             left: 0;
             background-color: #fffdf9;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            border-radius: 0 10px 10px 0;
-            border-left: 15px solid #e0e0e0; /* Simula el lomo del cuaderno */
+            box-shadow: 0 15px 35px rgba(244, 143, 177, 0.25), 0 5px 15px rgba(0,0,0,0.08);
+            border-radius: 0 16px 16px 0;
+            border-left: 18px solid #d7ccc8; /* Lomo tipo libreta */
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            padding: 30px;
-            box-sizing: border-box;
+            padding: 40px 30px;
             text-align: center;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
             transform-origin: left center;
             backface-visibility: hidden;
             cursor: pointer;
             user-select: none;
+            overflow: hidden;
         }
 
-        /* Líneas decorativas estilo libreta */
+        /* Rayado de libreta sutil y margen de los doodles */
         .page::before {
             content: '';
             position: absolute;
-            left: 20px;
+            left: 15px;
             top: 0;
             bottom: 0;
             width: 2px;
-            background-color: #ffcdd2; /* Margen rosa */
+            background-color: #ffb74d; 
+            opacity: 0.5;
+        }
+
+        /* Encabezado */
+        .page-header {
+            font-size: 0.85rem;
+            color: #b0bec5;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Bloque central de contenido */
+        .page-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
         }
 
         .frase {
-            font-size: 1.3rem;
-            color: #424242;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            font-weight: 500;
+            font-size: 1.25rem;
+            color: #37474f;
+            line-height: 1.65;
+            margin-bottom: 25px;
+            font-weight: 600;
         }
 
-        .decoracion {
-            font-size: 2rem;
+        /* Elementos extra visuales (Stickers / Doodles) */
+        .doodle-container {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 243, 224, 0.6);
+            border-radius: 50%;
+            border: 2px dashed #ff8a80;
+            animation: float 4s ease-in-out infinite alternate;
         }
 
-        /* Clase para pasar la página */
+        .doodle-emoji {
+            font-size: 3.5rem;
+        }
+
+        /* Detalles extras y contadores de páginas */
+        .page-footer {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #90a4ae;
+            border-top: 1px dashed #cfd8dc;
+            padding-top: 15px;
+        }
+
+        .click-hint {
+            color: #ff5252;
+            font-weight: bold;
+            font-size: 0.8rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Animación para flotar */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-8px) rotate(3deg); }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        /* Efecto 3D al voltear */
         .page.flipped {
             transform: rotateY(-180deg);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
         }
 
-        .instrucciones {
+        /* Barra de progreso inferior */
+        .progress-bar-container {
             position: absolute;
-            bottom: 20px;
-            font-size: 0.9rem;
-            color: #888;
+            bottom: -35px;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: #ff5252;
+            transition: width 0.3s ease;
         }
     </style>
 </head>
 <body>
 
-    <div class="book" id="libro">
-        <!-- Puedes cambiar o agregar las frases que tú quieras aquí abajo -->
+    <div class="book-container">
+        <!-- PÁGINA 1: PORTADA -->
         <div class="page">
-            <p class="frase">Te mentí, no fui a dormir... fui a hacerte este librito virtual. ✨</p>
-            <p class="decoracion">📖</p>
-            <p class="instrucciones">Toca para abrir...</p>
+            <div class="page-header">✨ NOTA SECRETA ✨</div>
+            <div class="page-body">
+                <p class="frase">Te mentí, no fui a dormir... ¡fui a hacerte este librito virtual solo para ti, mi niña linda! 💖</p>
+                <div class="doodle-container">
+                    <span class="doodle-emoji">🤫</span>
+                </div>
+            </div>
+            <div class="page-footer">
+                <span>Pág. 1</span>
+                <span class="click-hint">Toca para abrir ➔</span>
+            </div>
         </div>
 
+        <!-- PÁGINA 2: EL RELOJ -->
         <div class="page">
-            <p class="frase">Cada segundo a tu lado es mi fotograma favorito.</p>
-            <p class="decoracion">🧸</p>
+            <div class="page-header">🕒 11:11</div>
+            <div class="page-body">
+                <p class="frase">Eres mi deseo más bonito cada vez que el reloj marca las 11:11 o cuando pido un deseo a las estrellas.</p>
+                <div class="doodle-container" style="border-color: #ab47bc; background: #f3e5f5;">
+                    <span class="doodle-emoji">⏰</span>
+                </div>
+            </div>
+            <div class="page-footer">
+                <span>Pág. 2</span>
+                <span class="click-hint">Siguiente ➔</span>
+            </div>
         </div>
 
+        <!-- PÁGINA 3: LAS MEDUSAS -->
         <div class="page">
-            <p class="frase">No necesito un lienzo entero, porque tú ya pintas mi mundo de colores.</p>
-            <p class="decoracion">🎨</p>
+            <div class="page-header">🌊 OTRA VIDA</div>
+            <div class="page-body">
+                <p class="frase">Incluso si existieran mil universos o cambiáramos de vida, te aseguro que volvería a buscarte y a quererte.</p>
+                <div class="doodle-container" style="border-color: #29b6f6; background: #e1f5fe;">
+                    <span class="doodle-emoji">🪼</span>
+                </div>
+            </div>
+            <div class="page-footer">
+                <span>Pág. 3</span>
+                <span class="click-hint">Siguiente ➔</span>
+            </div>
         </div>
 
+        <!-- PÁGINA 4: GRÁFICO DEL CORAZÓN -->
         <div class="page">
-            <p class="frase">Mi corazón late en tu misma frecuencia, hoy y siempre.</p>
-            <p class="decoracion">💓</p>
+            <div class="page-header">📊 MI MENTE</div>
+            <div class="page-body">
+                <p class="frase">Hice un análisis de mi corazoncito y resulta que el 99.9% está lleno de tu sonrisa, tus ojitos hermosos y tus ocurrencias.</p>
+                <div class="doodle-container" style="border-color: #ec407a; background: #fce4ec;">
+                    <span class="doodle-emoji">📈</span>
+                </div>
+            </div>
+            <div class="page-footer">
+                <span>Pág. 4</span>
+                <span class="click-hint">Siguiente ➔</span>
+            </div>
         </div>
 
+        <!-- PÁGINA 5: PLANETAS -->
         <div class="page">
-            <p class="frase">Y si tuviera que volver a elegir... Te elegiría a ti, una y mil veces. ❤️</p>
-            <p class="decoracion">✨ Fin ✨</p>
+            <div class="page-header">🪐 EL ESPACIO</div>
+            <div class="page-body">
+                <p class="frase">Mi planeta favorito en todo el universo siempre será "A-Marte", porque estar contigo es un sueño.</p>
+                <div class="doodle-container" style="border-color: #7e57c2; background: #ede7f6;">
+                    <span class="doodle-emoji">🚀</span>
+                </div>
+            </div>
+            <div class="page-footer">
+                <span>Pág. 5</span>
+                <span class="click-hint">Siguiente ➔</span>
+            </div>
+        </div>
+
+        <!-- PÁGINA 6: WALL-E Y EVA -->
+        <div class="page">
+            <div class="page-header">🤖 ETERNAMENTE</div>
+            <div class="page-body">
+                <p class="frase">Te quiero de la forma más bonita, sincera y pura... justo como Wall-E cuida y ama a su princesita Eva.</p>
+                <div class="doodle-container" style="border-color: #ffee58; background: #fffde7;">
+                    <span class="doodle-emoji">🌱</span>
+                </div>
+            </div>
+            <div class="page-footer">
+                <span>Pág. 6</span>
+                <span class="click-hint">Siguiente ➔</span>
+            </div>
+        </div>
+
+        <!-- PÁGINA 7: LUGAR FELIZ -->
+        <div class="page">
+            <div class="page-header">🏡 MI HOGAR</div>
+            <div class="page-body">
+                <p class="frase">Tú eres mi lugar feliz, esa personita especial con la que todo es risas, dulzura y momentos lindos.</p>
+                <div class="doodle-container" style="border-color: #26a69a; background: #e0f2f1;">
+                    <span class="doodle-emoji">🏡</span>
+                </div>
+            </div>
+            <div class="page-footer">
+                <span>Pág. 7</span>
+                <span class="click-hint">Siguiente ➔</span>
+            </div>
+        </div>
+
+        <!-- PÁGINA 8: FINAL EXTRA BONITO -->
+        <div class="page">
+            <div class="page-header">❤️ MI PRINCESA</div>
+            <div class="page-body">
+                <p class="frase">Gracias por existir y por llenar mis días de tantos colores brillantes. ¡Te quiero con todo mi corazón! ♾️</p>
+                <div class="doodle-container" style="border-color: #ff5252; background: #ffebee;">
+                    <span class="doodle-emoji">👑</span>
+                </div>
+            </div>
+            <div class="page-footer">
+                <span>Pág. 8</span>
+                <span class="click-hint">🔄 Reiniciar</span>
+            </div>
+        </div>
+
+        <!-- Barra de progreso visual -->
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progreso"></div>
         </div>
     </div>
 
     <script>
         const paginas = document.querySelectorAll('.page');
+        const barraProgreso = document.getElementById('progreso');
         
-        // Organizar el orden visual de las páginas (la primera arriba)
-        paginas.forEach((pagina, index) => {
-            pagina.style.zIndex = paginas.length - index;
-        });
+        function organizarZIndex() {
+            paginas.forEach((pagina, index) => {
+                pagina.style.zIndex = paginas.length - index;
+            });
+        }
+        
+        organizarZIndex();
+        actualizarProgreso(0);
 
-        // Evento para pasar las hojas al hacer clic
+        function actualizarProgreso(actual) {
+            const porcentaje = (actual / (paginas.length - 1)) * 100;
+            barraProgreso.style.width = porcentaje + '%';
+        }
+
         paginas.forEach((pagina, index) => {
             pagina.addEventListener('click', () => {
-                // Si es la última página, reinicia el libro completo
                 if (index === paginas.length - 1) {
                     paginas.forEach((p) => p.classList.remove('flipped'));
+                    setTimeout(() => {
+                        organizarZIndex();
+                        actualizarProgreso(0);
+                    }, 300);
                 } else {
                     pagina.classList.add('flipped');
+                    pagina.style.zIndex = index + 1;
+                    actualizarProgreso(index + 1);
                 }
             });
         });
