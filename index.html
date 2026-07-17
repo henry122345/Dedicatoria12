@@ -1,36 +1,141 @@
-import os
-import time
-import sys
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Ti ❤️</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fce4ec;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
 
-# Lista de frases románticas que aparecerán en cada "página" del flipbook
-frases = [
-    "Cada segundo a tu lado...",
-    "es un fotograma de mi felicidad.",
-    "No necesito un lienzo entero,",
-    "porque tú ya pintas mi mundo.",
-    "Eres mi pensamiento favorito...",
-    "al empezar y al terminar el día.",
-    "Mi corazón late en tu misma frecuencia,",
-    "como un flipbook que nunca deja de pasar.",
-    "Y si tuviera que volver a elegir...",
-    "Te elegiría a ti, una y mil veces. ❤️"
-]
+        /* Contenedor del libro */
+        .book {
+            width: 340px;
+            height: 450px;
+            position: relative;
+            perspective: 1500px;
+        }
 
-def limpiar_pantalla():
-    """Limpia la terminal dependiendo del sistema operativo."""
-    os.system('cls' if os.name == 'nt' else 'clear')
+        /* Estilo de cada página */
+        .page {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #fffdf9;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-radius: 0 10px 10px 0;
+            border-left: 15px solid #e0e0e0; /* Simula el lomo del cuaderno */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            box-sizing: border-box;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: left center;
+            backface-visibility: hidden;
+            cursor: pointer;
+            user-select: none;
+        }
 
-def animar_pagina_pasando(ancho=60):
-    """Simula visualmente el efecto físico de una hoja doblándose al pasar."""
-    # El borde derecho se acorta y vuelve a estirarse simulando la hoja
-    secuencia_borde = [0, 4, 12, 18, 12, 4, 0]
-    for reduccion in secuencia_borde:
-        limpiar_pantalla()
-        ancho_actual = ancho - reduccion
-        print("\n" * 4)
-        print("  ┌" + "─" * (ancho_actual - 2) + "┐")
-        for _ in range(8):
-            # Líneas vacías en movimiento
-            sombra = "/" if reduccion > 0 else "│"
-            print("  │" + " " * (ancho_actual - 2) + sombra)
-        print("  └" + "─" * (an
+        /* Líneas decorativas estilo libreta */
+        .page::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #ffcdd2; /* Margen rosa */
+        }
+
+        .frase {
+            font-size: 1.3rem;
+            color: #424242;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .decoracion {
+            font-size: 2rem;
+        }
+
+        /* Clase para pasar la página */
+        .page.flipped {
+            transform: rotateY(-180deg);
+        }
+
+        .instrucciones {
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="book" id="libro">
+        <!-- Puedes cambiar o agregar las frases que tú quieras aquí abajo -->
+        <div class="page">
+            <p class="frase">Te mentí, no fui a dormir... fui a hacerte este librito virtual. ✨</p>
+            <p class="decoracion">📖</p>
+            <p class="instrucciones">Toca para abrir...</p>
+        </div>
+
+        <div class="page">
+            <p class="frase">Cada segundo a tu lado es mi fotograma favorito.</p>
+            <p class="decoracion">🧸</p>
+        </div>
+
+        <div class="page">
+            <p class="frase">No necesito un lienzo entero, porque tú ya pintas mi mundo de colores.</p>
+            <p class="decoracion">🎨</p>
+        </div>
+
+        <div class="page">
+            <p class="frase">Mi corazón late en tu misma frecuencia, hoy y siempre.</p>
+            <p class="decoracion">💓</p>
+        </div>
+
+        <div class="page">
+            <p class="frase">Y si tuviera que volver a elegir... Te elegiría a ti, una y mil veces. ❤️</p>
+            <p class="decoracion">✨ Fin ✨</p>
+        </div>
+    </div>
+
+    <script>
+        const paginas = document.querySelectorAll('.page');
+        
+        // Organizar el orden visual de las páginas (la primera arriba)
+        paginas.forEach((pagina, index) => {
+            pagina.style.zIndex = paginas.length - index;
+        });
+
+        // Evento para pasar las hojas al hacer clic
+        paginas.forEach((pagina, index) => {
+            pagina.addEventListener('click', () => {
+                // Si es la última página, reinicia el libro completo
+                if (index === paginas.length - 1) {
+                    paginas.forEach((p) => p.classList.remove('flipped'));
+                } else {
+                    pagina.classList.add('flipped');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
