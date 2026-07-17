@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para una persona genial ✨</title>
+    <title>Para la niña de mis ojos ❤️</title>
     <style>
         * {
             box-sizing: border-box;
@@ -11,7 +11,7 @@
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #e0f2f1 0%, #e8eaf6 100%);
+            background: linear-gradient(135deg, #ffebee 0%, #fce4ec 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
@@ -20,10 +20,10 @@
             overflow: hidden;
         }
 
-        /* Contenedor del Libro interactivo */
+        /* Contenedor del Libro */
         .book-container {
             width: 360px;
-            height: 480px;
+            height: 490px;
             position: relative;
             perspective: 2000px;
         }
@@ -35,9 +35,9 @@
             top: 0;
             left: 0;
             background-color: #fffdf9;
-            box-shadow: 0 15px 35px rgba(121, 134, 203, 0.2), 0 5px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 15px 35px rgba(244, 143, 177, 0.25), 0 5px 15px rgba(0,0,0,0.08);
             border-radius: 0 16px 16px 0;
-            border-left: 18px solid #b0bec5; /* Lomo tipo cuaderno de dibujo */
+            border-left: 18px solid #ffcdd2; /* Lomo rosa del cuaderno */
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -52,7 +52,7 @@
             overflow: hidden;
         }
 
-        /* Margen de los doodles */
+        /* Margen rosa clásico */
         .page::before {
             content: '';
             position: absolute;
@@ -60,13 +60,13 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background-color: #81d4fa; 
-            opacity: 0.5;
+            background-color: #ff8a80; 
+            opacity: 0.4;
         }
 
         .page-header {
             font-size: 0.8rem;
-            color: #90a4ae;
+            color: #f48fb1;
             letter-spacing: 2px;
             text-transform: uppercase;
             font-weight: bold;
@@ -83,13 +83,13 @@
 
         .frase {
             font-size: 1.2rem;
-            color: #263238;
+            color: #424242;
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-weight: 600;
         }
 
-        /* Zona de dibujos múltiples (Doodles) */
+        /* Cuadrícula de dibujos de amor (Doodles) */
         .doodles-grid {
             display: flex;
             justify-content: center;
@@ -105,21 +105,21 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(245, 245, 245, 0.8);
-            border-radius: 12px;
-            border: 2px dashed #78909c;
+            background: rgba(255, 240, 245, 0.8);
+            border-radius: 50%;
+            border: 2px dashed #ff4081;
             font-size: 2.2rem;
-            animation: float-doodle 3s ease-in-out infinite alternate;
+            animation: float-love 3s ease-in-out infinite alternate;
         }
 
-        /* Variar los tiempos de animación para que parezcan independientes */
         .doodle-box:nth-child(2) {
-            animation-delay: 0.5s;
+            animation-delay: 0.4s;
             border-color: #ffb74d;
+            border-radius: 15px;
         }
         .doodle-box:nth-child(3) {
-            animation-delay: 1s;
-            border-color: #4db6ac;
+            animation-delay: 0.8s;
+            border-color: #ba68c8;
         }
 
         .page-footer {
@@ -128,20 +128,20 @@
             justify-content: space-between;
             align-items: center;
             font-size: 0.8rem;
-            color: #b0bec5;
-            border-top: 1px dashed #cfd8dc;
+            color: #f48fb1;
+            border-top: 1px dashed #f8bbd0;
             padding-top: 12px;
         }
 
         .click-hint {
-            color: #009688;
+            color: #ff4081;
             font-weight: bold;
             animation: pulse 1.5s infinite;
         }
 
-        @keyframes float-doodle {
-            0% { transform: translateY(0px) scale(1); }
-            100% { transform: translateY(-6px) scale(1.05); }
+        @keyframes float-love {
+            0% { transform: translateY(0px) rotate(-3deg); }
+            100% { transform: translateY(-8px) rotate(3deg); }
         }
 
         @keyframes pulse {
@@ -169,7 +169,7 @@
         .progress-bar {
             height: 100%;
             width: 0%;
-            background: #009688;
+            background: #ff4081;
             transition: width 0.3s ease;
         }
     </style>
@@ -177,32 +177,33 @@
 <body>
 
     <div class="book-container">
-        <!-- PÁGINA 1 -->
+        
+        <!-- PAGINA 1: PORTADA -->
         <div class="page">
-            <div class="page-header">📌 Reporte Diario</div>
+            <div class="page-header">🎁 Nota Especial</div>
             <div class="page-body">
-                <p class="frase">Te dije que ya me iba a dormir, pero la verdad me colgué armando esto. ¡Mira!</p>
+                <p class="frase">Te mentí, no fui a dormir... fui a hacerte este librito virtual con dedicatorias secretas. ✨</p>
                 <div class="doodles-grid">
-                    <div class="doodle-box">👀</div>
-                    <div class="doodle-box">✨</div>
-                    <div class="doodle-box">👨‍💻</div>
+                    <div class="doodle-box">🤫</div>
+                    <div class="doodle-box">📖</div>
+                    <div class="doodle-box">💖</div>
                 </div>
             </div>
             <div class="page-footer">
                 <span>Pág. 1</span>
-                <span class="click-hint">Abre aquí ➔</span>
+                <span class="click-hint">Toca para abrir ➔</span>
             </div>
         </div>
 
-        <!-- PÁGINA 2 -->
+        <!-- PAGINA 2 -->
         <div class="page">
-            <div class="page-header">⚡ Datos Reales</div>
+            <div class="page-header">✨ Dedicatoria</div>
             <div class="page-body">
-                <p class="frase">Hay un 99.9% de probabilidad de que seas la persona más cool y divertida que conozco.</p>
+                <p class="frase">Tú siempre serás la niña de mis ojos. ❤️</p>
                 <div class="doodles-grid">
-                    <div class="doodle-box">💯</div>
-                    <div class="doodle-box">🔥</div>
-                    <div class="doodle-box">👾</div>
+                    <div class="doodle-box">👀</div>
+                    <div class="doodle-box">🌹</div>
+                    <div class="doodle-box">👧</div>
                 </div>
             </div>
             <div class="page-footer">
@@ -211,15 +212,15 @@
             </div>
         </div>
 
-        <!-- PÁGINA 3 -->
+        <!-- PAGINA 3 -->
         <div class="page">
-            <div class="page-header">🎮 Modo Cooperativo</div>
+            <div class="page-header">✨ Dedicatoria</div>
             <div class="page-body">
-                <p class="frase">Hacer planes contigo o quedarse hablando de cualquier tontería siempre es el mejor plan del día.</p>
+                <p class="frase">Siempre tendrás un lugar especial en mi corazón.</p>
                 <div class="doodles-grid">
-                    <div class="doodle-box">🍕</div>
-                    <div class="doodle-box">🎮</div>
-                    <div class="doodle-box">🎧</div>
+                    <div class="doodle-box">🔒</div>
+                    <div class="doodle-box">💝</div>
+                    <div class="doodle-box">🗝️</div>
                 </div>
             </div>
             <div class="page-footer">
@@ -228,15 +229,15 @@
             </div>
         </div>
 
-        <!-- PÁGINA 4 -->
+        <!-- PAGINA 4 -->
         <div class="page">
-            <div class="page-header">🌌 Espacio Exterior</div>
+            <div class="page-header">✨ Dedicatoria</div>
             <div class="page-body">
-                <p class="frase">Si hiciéramos un viaje en un cohete, seguro terminaríamos perdidos en otra galaxia por andar riéndonos.</p>
+                <p class="frase">Eres la persona que más bonito le da sentido a mis días.</p>
                 <div class="doodles-grid">
-                    <div class="doodle-box">🚀</div>
-                    <div class="doodle-box">🪐</div>
-                    <div class="doodle-box">👽</div>
+                    <div class="doodle-box">☀️</div>
+                    <div class="doodle-box">🌈</div>
+                    <div class="doodle-box">🗓️</div>
                 </div>
             </div>
             <div class="page-footer">
@@ -245,20 +246,190 @@
             </div>
         </div>
 
-        <!-- PÁGINA 5 -->
+        <!-- PAGINA 5 -->
         <div class="page">
-            <div class="page-header">🎵 Buenísima Vibra</div>
+            <div class="page-header">✨ Dedicatoria</div>
             <div class="page-body">
-                <p class="frase">Gracias por contagiar siempre tan buena energía y por ser una persona tan genial. ¡Te ganaste una corona!</p>
+                <p class="frase">No importa el tiempo, siempre serás alguien muy especial para mí.</p>
                 <div class="doodles-grid">
-                    <div class="doodle-box">⭐</div>
-                    <div class="doodle-box">👑</div>
-                    <div class="doodle-box">🎈</div>
+                    <div class="doodle-box">⏳</div>
+                    <div class="doodle-box">💎</div>
+                    <div class="doodle-box">🕊️</div>
                 </div>
             </div>
             <div class="page-footer">
                 <span>Pág. 5</span>
-                <span class="click-hint">🔄 Volver a empezar</span>
+                <span class="click-hint">Siguiente ➔</span>
+            </div>
+        </div>
+
+        <!-- PAGINA 6 -->
+        <div class="page">
+            <div class="page-header">✨ Dedicatoria</div>
+            <div class="page-body">
+                <p class="frase">Eres mi pensamiento favorito todos los días.</p>
+                <div class="doodles-grid">
+                    <div class="doodle-box">💭</div>
+                    <div class="doodle-box">🌟</div>
+                    <div class="doodle-box">🧸</div>
+                </div>
+            </div>
+            <div class="page-footer">
+                <span>Pág. 6</span>
+                <span class="click-hint">Siguiente ➔</span>
+            </div>
+        </div>
+
+        <!-- PAGINA 7 -->
+        <div class="page">
+            <div class="page-header">✨ Dedicatoria</div>
+            <div class="page-body">
+                <p class="frase">Contigo aprendí que hay personas que valen la pena de verdad.</p>
+                <div class="doodles-grid">
+                    <div class="doodle-box">🥇</div>
+                    <div class="doodle-box">🕯️</div>
+                    <div class="doodle-box">✨</div>
+                </div>
+            </div>
+            <div class="page-footer">
+                <span>Pág. 7</span>
+                <span class="click-hint">Siguiente ➔</span>
+            </div>
+        </div>
+
+        <!-- PAGINA 8 -->
+        <div class="page">
+            <div class="page-header">✨ Dedicatoria</div>
+            <div class="page-body">
+                <p class="frase">Si pudiera elegir otra vez, volvería a escogerte a ti.</p>
+                <div class="doodles-grid">
+                    <div class="doodle-box">🔄</div>
+                    <div class="doodle-box">💍</div>
+                    <div class="doodle-box">🎯</div>
+                </div>
+            </div>
+            <div class="page-footer">
+                <span>Pág. 8</span>
+                <span class="click-hint">Siguiente ➔</span>
+            </div>
+        </div>
+
+        <!-- PAGINA 9 -->
+        <div class="page">
+            <div class="page-header">✨ Dedicatoria</div>
+            <div class="page-body">
+                <p class="frase">Eres la sonrisa que siempre quiero cuidar.</p>
+                <div class="doodles-grid">
+                    <div class="doodle-box">😊</div>
+                    <div class="doodle-box">🛡️</div>
+                    <div class="doodle-box">🌸</div>
+                </div>
+            </div>
+            <div class="page-footer">
+                <span>Pág. 9</span>
+                <span class="click-hint">Siguiente ➔</span>
+            </div>
+        </div>
+
+        <!-- PAGINA 10 -->
+        <div class="page">
+            <div class="page-header">✨ Dedicatoria</div>
+            <div class="page-body">
+                <p class="frase">Mi lugar favorito siempre será donde estés tú.</p>
+                <div class="doodles-grid">
+                    <div class="doodle-box">📍</div>
+                    <div class="doodle-box">🏡</div>
+                    <div class="doodle-box">🗺️</div>
+                </div>
+            </div>
+            <div class="page-footer">
+                <span>Pág. 10</span>
+                <span class="click-hint">Siguiente ➔</span>
+            </div>
+        </div>
+
+        <!-- PAGINA 11 -->
+        <div class="page">
+            <div class="page-header">✨ Dedicatoria</div>
+            <div class="page-body">
+                <p class="frase">Aunque pase el tiempo, seguirás siendo mi debilidad.</p>
+                <div class="doodles-grid">
+                    <div class="doodle-box">🕰️</div>
+                    <div class="doodle-box">💘</div>
+                    <div class="doodle-box">🍂</div>
+                </div>
+            </div>
+            <div class="page-footer">
+                <span>Pág. 11</span>
+                <span class="click-hint">Siguiente ➔</span>
+            </div>
+        </div>
+
+        <!-- PAGINA 12 -->
+        <div class="page">
+            <div class="page-header">✨ Dedicatoria</div>
+            <div class="page-body">
+                <p class="frase">Tú eres esa casualidad que jamás quisiera perder.</p>
+                <div class="doodles-grid">
+                    <div class="doodle-box">🍀</div>
+                    <div class="doodle-box">🔮</div>
+                    <div class="doodle-box">💎</div>
+                </div>
+            </div>
+            <div class="page-footer">
+                <span>Pág. 12</span>
+                <span class="click-hint">Siguiente ➔</span>
+            </div>
+        </div>
+
+        <!-- PAGINA 13 -->
+        <div class="page">
+            <div class="page-header">✨ Dedicatoria</div>
+            <div class="page-body">
+                <p class="frase">Siempre voy a encontrar una razón para pensar en ti.</p>
+                <div class="doodles-grid">
+                    <div class="doodle-box">💡</div>
+                    <div class="doodle-box">📝</div>
+                    <div class="doodle-box">💕</div>
+                </div>
+            </div>
+            <div class="page-footer">
+                <span>Pág. 13</span>
+                <span class="click-hint">Siguiente ➔</span>
+            </div>
+        </div>
+
+        <!-- PAGINA 14 -->
+        <div class="page">
+            <div class="page-header">✨ Dedicatoria</div>
+            <div class="page-body">
+                <p class="frase">Eres el pedacito de felicidad que llegó a cambiar mis días.</p>
+                <div class="doodles-grid">
+                    <div class="doodle-box">🧩</div>
+                    <div class="doodle-box">⚡</div>
+                    <div class="doodle-box">🤩</div>
+                </div>
+            </div>
+            <div class="page-footer">
+                <span>Pág. 14</span>
+                <span class="click-hint">Siguiente ➔</span>
+            </div>
+        </div>
+
+        <!-- PAGINA 15 -->
+        <div class="page">
+            <div class="page-header">✨ Fin del Libro</div>
+            <div class="page-body">
+                <p class="frase">Mi corazón siempre tendrá un espacio reservado para ti. ♾️</p>
+                <div class="doodles-grid">
+                    <div class="doodle-box">❤️</div>
+                    <div class="doodle-box">👑</div>
+                    <div class="doodle-box">🎟️</div>
+                </div>
+            </div>
+            <div class="page-footer">
+                <span>Pág. 15</span>
+                <span class="click-hint">🔄 Volver a leer</span>
             </div>
         </div>
 
