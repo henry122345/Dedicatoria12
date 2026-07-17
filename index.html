@@ -1,52 +1,36 @@
 import os
-import math
-import random
-from PIL import Image, ImageDraw, ImagePath
+import time
+import sys
 
-# Crear directorio para los fotogramas
-os.makedirs("flipbook_video", exist_ok=True)
+# Lista de frases románticas que aparecerán en cada "página" del flipbook
+frases = [
+    "Cada segundo a tu lado...",
+    "es un fotograma de mi felicidad.",
+    "No necesito un lienzo entero,",
+    "porque tú ya pintas mi mundo.",
+    "Eres mi pensamiento favorito...",
+    "al empezar y al terminar el día.",
+    "Mi corazón late en tu misma frecuencia,",
+    "como un flipbook que nunca deja de pasar.",
+    "Y si tuviera que volver a elegir...",
+    "Te elegiría a ti, una y mil veces. ❤️"
+]
 
-# Configuración del lienzo
-width, height = 640, 480
-num_frames = 24
-frames = []
+def limpiar_pantalla():
+    """Limpia la terminal dependiendo del sistema operativo."""
+    os.system('cls' if os.name == 'nt' else 'clear')
 
-def draw_heart(draw, cx, cy, size, color):
-    """Dibuja un corazón estilizado usando curvas Bézier para simular un dibujo a mano."""
-    # Puntos de control para recrear la forma del corazón
-    p1 = (cx, cy + size * 0.6)
-    cp1 = (cx - size * 0.8, cy + size * 0.2)
-    cp2 = (cx - size * 0.9, cy - size * 0.6)
-    p2 = (cx, cy - size * 0.4)
-    cp3 = (cx + size * 0.9, cy - size * 0.6)
-    cp4 = (cx + size * 0.8, cy + size * 0.2)
-    
-    # Construir la curva del corazón
-    path_data = [
-        ("M", p1),
-        ("C", cp1, cp2, p2),
-        ("C", cp3, cp4, p1)
-    ]
-    
-    # Dibujar la silueta rellena
-    # Nota: Para simplificar sin paths complejos en PIL básico, aproximamos con polígono denso
-    # o usamos las funciones estándar. Aquí dibujaremos el contorno y relleno simulado:
-    draw.polygon([p1, (cx - size, cy - size//2), (cx - size//2, cy - size), p2, (cx + size//2, cy - size), (cx + size, cy - size//2)], fill=color)
-
-for i in range(num_frames):
-    # 1. Crear el fondo del cuaderno (estilo papel pastel sutil)
-    img = Image.new("RGB", (width, height), (253, 251, 245))
-    draw = ImageDraw.Draw(img)
-    
-    # 2. Simular el efecto de "página pasando" (Flipbook)
-    # A medida que avanza la animación, el borde derecho se curva hacia adentro
-    progress = i / (num_frames - 1)
-    page_turn_x = width - int(40 * math.sin(progress * math.pi))
-    
-    # Dibujar las líneas del lomo del cuaderno a la izquierda
-    for line_y in range(20, height, 30):
-        draw.ellipse([10, line_y, 25, line_y + 15], outline=(180, 180, 180), width=2)
-    draw.line([(35, 0), (35, height)], fill=(200, 200, 200), width=1)
-    
-    # Sombras del borde de la página para dar volumen 3D de stop-motion
-    if page_
+def animar_pagina_pasando(ancho=60):
+    """Simula visualmente el efecto físico de una hoja doblándose al pasar."""
+    # El borde derecho se acorta y vuelve a estirarse simulando la hoja
+    secuencia_borde = [0, 4, 12, 18, 12, 4, 0]
+    for reduccion in secuencia_borde:
+        limpiar_pantalla()
+        ancho_actual = ancho - reduccion
+        print("\n" * 4)
+        print("  ┌" + "─" * (ancho_actual - 2) + "┐")
+        for _ in range(8):
+            # Líneas vacías en movimiento
+            sombra = "/" if reduccion > 0 else "│"
+            print("  │" + " " * (ancho_actual - 2) + sombra)
+        print("  └" + "─" * (an
