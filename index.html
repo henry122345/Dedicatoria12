@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gatito Ronroneador 🐾</title>
+  <title>Gatito Ronroneador Melodioso 🐾</title>
   <style>
     body {
       font-family: 'Segoe UI', Roboto, sans-serif;
@@ -28,7 +28,7 @@
       border: 3px solid #ffffff;
     }
 
-    /* Zona táctil / interactiva */
+    /* Zona interactiva */
     .cat-container {
       width: 230px;
       height: 230px;
@@ -50,7 +50,7 @@
       overflow: visible;
     }
 
-    /* ================= ANIMACIONES BASE ================= */
+    /* Animaciones base */
     .body-group {
       animation: breathe 3s ease-in-out infinite alternate;
       transform-origin: 100px 140px;
@@ -71,7 +71,7 @@
       100% { transform: rotate(12deg); }
     }
 
-    /* ================= ESTADO AL ACARICIAR (HOVER / TOUCH) ================= */
+    /* Estado al acariciar (Hover / Toque) */
     .purring .body-group {
       animation: purrVibration 0.15s ease-in-out infinite alternate;
     }
@@ -208,9 +208,11 @@
 
   <script>
     let audioCtx = null;
-    let osc = null;
-    let lfo = null;
-    let gain = null;
+    let noiseNode = null;
+    let filterNode = null;
+    let lfoNode = null;
+    let lfoGain = null;
+    let gainNode = null;
     let isPurring = false;
     let heartInterval = null;
 
@@ -220,7 +222,7 @@
       }
     }
 
-    // Inicia el sonido continuo del ronroneo
+    // Generador de ronroneo realista usando ruido filtrado (Suena hermoso y natural)
     function empezarRonroneo() {
       if (isPurring) return;
       iniciarAudio();
@@ -229,40 +231,62 @@
         audioCtx.resume();
       }
 
-      osc = audioCtx.createOscillator();
-      gain = audioCtx.createGain();
-      lfo = audioCtx.createOscillator();
-      const lfoGain = audioCtx.createGain();
+      // 1. Crear buffer de ruido rosa/marrón (suave y grave como un gatito)
+      const bufferSize = audioCtx.sampleRate * 2;
+      const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const output = noiseBuffer.getChannelData(0);
+      let lastOut = 0.0;
+      
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        output[i] = (lastOut + (0.02 * white)) / 1.02; // Filtro interno para calentar el sonido
+        lastOut = output[i];
+      }
 
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(55, audioCtx.currentTime); // Tono grave de motorcito
+      noiseNode = audioCtx.createBufferSource();
+      noiseNode.buffer = noiseBuffer;
+      noiseNode.loop = true;
 
-      lfo.frequency.setValueAtTime(24, audioCtx.currentTime); // Vibración constante
-      lfoGain.gain.setValueAtTime(0.09, audioCtx.currentTime);
+      // 2. Filtro de paso bajo para darle la textura cálida de pecho de gato
+      filterNode = audioCtx.createBiquadFilter();
+      filterNode.type = 'lowpass';
+      filterNode.frequency.setValueAtTime(120, audioCtx.currentTime);
 
-      lfo.connect(gain.gain);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
+      // 3. LFO (Oscilador de baja frecuencia) para simular el ritmo respiratorio de inhalar/exhalar del ronroneo
+      lfoNode = audioCtx.createOscillator();
+      lfoNode.frequency.setValueAtTime(26, audioCtx.currentTime); // Velocidad del ronroneo
+      lfoGain = audioCtx.createGain();
+      lfoGain.gain.setValueAtTime(45, audioCtx.currentTime); // Profundidad de la vibración
 
-      gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 0.1);
+      lfoNode.connect(lfoGain);
+      lfoGain.connect(filterNode.frequency);
 
-      osc.start();
-      lfo.start();
+      // 4. Control de volumen general
+      gainNode = audioCtx.createGain();
+      gainNode.gain.setValueAtTime(0.01, audioCtx.currentTime);
+      gainNode.gain.linearRampToValueAtTime(0.35, audioCtx.currentTime + 0.2); // Sube suavemente
+
+      // Conexiones
+      noiseNode.connect(filterNode);
+      filterNode.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      noiseNode.start();
+      lfoNode.start();
       isPurring = true;
     }
 
-    // Detiene el ronroneo cuando se quita el dedo/cursor
+    // Detener suavemente el ronroneo
     function detenerRonroneo() {
       if (!isPurring) return;
 
-      if (gain) {
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+      if (gainNode) {
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
         setTimeout(() => {
-          if (osc) osc.stop();
-          if (lfo) lfo.stop();
+          if (noiseNode) { noiseNode.stop(); noiseNode.disconnect(); }
+          if (lfoNode) { lfoNode.stop(); lfoNode.disconnect(); }
           isPurring = false;
-        }, 100);
+        }, 150);
       }
     }
 
@@ -285,11 +309,11 @@
       heartInterval = null;
     }
 
-    // EVENTOS PARA COMPUTADORA (Ratón)
+    // Eventos de ratón
     catBox.addEventListener('mouseenter', activarAcariciado);
     catBox.addEventListener('mouseleave', desactivarAcariciado);
 
-    // EVENTOS PARA CELULAR / TABLET (Táctil)
+    // Eventos táctiles para celular
     catBox.addEventListener('touchstart', (e) => {
       e.preventDefault();
       activarAcariciado(e.touches[0]);
@@ -318,4 +342,3 @@
 
 </body>
 </html>
-
