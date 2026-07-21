@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tarjeta de Gatito</title>
+  <title>Avatar de Gatito Ronroneador</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f7f3ef;
+      background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -15,43 +15,75 @@
       margin: 0;
     }
 
-    .cat-card {
+    .card {
       background-color: #ffffff;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-      width: 320px;
-      padding: 24px;
+      border-radius: 24px;
+      padding: 30px;
       text-align: center;
-      transition: transform 0.3s ease;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      width: 300px;
     }
 
-    .cat-card:hover {
-      transform: translateY(-5px);
+    /* Estilos del Avatar SVG */
+    .cat-avatar-container {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 15px;
+      background: #e8f5e9;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(76, 175, 80, 0.15);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
     }
 
-    .cat-avatar {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-      border-radius: 15px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    .cat-avatar-container:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 25px rgba(76, 175, 80, 0.25);
+    }
+
+    .cat-avatar-container:active {
+      transform: scale(0.95);
+    }
+
+    svg {
+      width: 140px;
+      height: 140px;
+    }
+
+    /* Animación de orejitas al hacer clic */
+    .purring .ear-left {
+      animation: moveEarLeft 0.3s ease infinite alternate;
+    }
+    .purring .ear-right {
+      animation: moveEarRight 0.3s ease infinite alternate;
+    }
+
+    @keyframes moveEarLeft {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-5deg); }
+    }
+    @keyframes moveEarRight {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(5deg); }
     }
 
     h2 {
       color: #333;
-      margin: 16px 0 8px;
-      font-size: 1.5rem;
+      margin: 10px 0 5px;
     }
 
     p {
-      color: #666;
-      font-size: 0.95rem;
-      line-height: 1.4;
+      color: #777;
+      font-size: 0.9rem;
       margin-bottom: 20px;
     }
 
-    .btn-purr {
-      background-color: #ff7b93;
+    .btn-pet {
+      background-color: #81c784;
       color: white;
       border: none;
       padding: 12px 24px;
@@ -59,44 +91,134 @@
       font-size: 1rem;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(255, 123, 147, 0.4);
-      transition: background-color 0.2s, transform 0.1s;
+      box-shadow: 0 4px 12px rgba(129, 199, 132, 0.4);
+      transition: background-color 0.2s;
     }
 
-    .btn-purr:hover {
-      background-color: #ff5277;
-    }
-
-    .btn-purr:active {
-      transform: scale(0.95);
+    .btn-pet:hover {
+      background-color: #66bb6a;
     }
 
     .counter {
       margin-top: 15px;
-      font-size: 0.9rem;
-      color: #888;
       font-weight: 600;
+      color: #555;
+    }
+
+    .hearts {
+      position: absolute;
+      top: -10px;
+      font-size: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.5s;
+      pointer-events: none;
+    }
+
+    .hearts.show {
+      opacity: 1;
+      transform: translateY(-20px);
     }
   </style>
 </head>
 <body>
 
-  <div class="cat-card">
-    <!-- Imagen dinámica de gatito -->
-    <img class="cat-avatar" src="https://cataas.com/cat" alt="Gatito tierno">
+  <div class="card">
+    <div class="cat-avatar-container" id="catAvatar" onclick="acariciarGato()">
+      <div class="hearts" id="hearts">💖🐾💖</div>
+      
+      <!-- Avatar SVG del Gatito -->
+      <svg viewBox="0 0 100 100" id="catSvg">
+        <!-- Orejas -->
+        <polygon class="ear-left" points="25,35 15,10 40,25" fill="#FFA726" />
+        <polygon class="ear-left" points="27,33 18,15 38,26" fill="#FFCC80" />
+        <polygon class="ear-right" points="75,35 85,10 60,25" fill="#FFA726" />
+        <polygon class="ear-right" points="73,33 82,15 62,26" fill="#FFCC80" />
+        
+        <!-- Cabeza -->
+        <circle cx="50" cy="50" r="32" fill="#FFA726" />
+        
+        <!-- Ojos -->
+        <circle cx="38" cy="48" r="4" fill="#2E7D32" />
+        <circle cx="62" cy="48" r="4" fill="#2E7D32" />
+        <circle cx="39" cy="47" r="1.5" fill="#FFF" />
+        <circle cx="63" cy="47" r="1.5" fill="#FFF" />
+        
+        <!-- Nariz y Boca -->
+        <polygon points="48,55 52,55 50,58" fill="#E91E63" />
+        <path d="M 46 60 Q 50 63 50 60 Q 50 63 54 60" stroke="#5D4037" stroke-width="1.5" fill="none" stroke-linecap="round" />
+        
+        <!-- Bigotes -->
+        <line x1="20" y1="52" x2="35" y2="53" stroke="#5D4037" stroke-width="1.5" />
+        <line x1="20" y1="58" x2="35" y2="56" stroke="#5D4037" stroke-width="1.5" />
+        <line x1="80" y1="52" x2="65" y2="53" stroke="#5D4037" stroke-width="1.5" />
+        <line x1="80" y1="58" x2="65" y2="56" stroke="#5D4037" stroke-width="1.5" />
+      </svg>
+    </div>
 
-    <h2>Michi Bonito 🐾</h2>
-    <p>Experto en sestas de 18 horas, cazador de luces láser y profesional del ronroneo.</p>
-    
-    <button class="btn-purr" onclick="darAcaricia()">¡Acariciar! 🐾</button>
-    <div class="counter" id="counterText">Caricias recibidas: <span id="count">0</span></div>
+    <h2>Michi Avatar 🐱</h2>
+    <p>Toca al gatito para acariciarlo y escuchar su ronroneo.</p>
+
+    <button class="btn-pet" onclick="acariciarGato()">Acariciar 🐾</button>
+    <div class="counter">Caricias: <span id="count">0</span></div>
   </div>
 
   <script>
     let caricias = 0;
-    function darAcaricia() {
+    let audioCtx = null;
+
+    // Generador de sonido de ronroneo con Web Audio API
+    function playPurrSound() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+
+      // Crear un tono de baja frecuencia vibrante (tipo motorcito)
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      const lfo = audioCtx.createOscillator();
+      const lfoGain = audioCtx.createGain();
+
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(55, audioCtx.currentTime); // Frecuencia grave típica de ronroneo
+
+      // LFO para la vibración (ritmo del ronroneo)
+      lfo.frequency.setValueAtTime(22, audioCtx.currentTime); 
+      lfoGain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+
+      lfo.connect(gain.gain);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      // Suavizar entrada y salida del sonido
+      gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.15, audioCtx.currentTime + 0.1);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+
+      osc.start();
+      lfo.start();
+
+      osc.stop(audioCtx.currentTime + 1.2);
+      lfo.stop(audioCtx.currentTime + 1.2);
+    }
+
+    function acariciarGato() {
       caricias++;
       document.getElementById('count').textContent = caricias;
+
+      // Reproduce el ronroneo
+      playPurrSound();
+
+      // Animación visual (corazones y movimiento)
+      const avatar = document.getElementById('catAvatar');
+      const hearts = document.getElementById('hearts');
+
+      avatar.classList.add('purring');
+      hearts.classList.add('show');
+
+      setTimeout(() => {
+        avatar.classList.remove('purring');
+        hearts.classList.remove('show');
+      }, 800);
     }
   </script>
 
