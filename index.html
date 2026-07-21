@@ -1,274 +1,321 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gatito Ronroneando 🐱</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gatito Ronroneador 🐾</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #ffeef8 0%, #e0f2fe 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      user-select: none;
+      touch-action: manipulation;
+    }
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+    .card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border-radius: 35px;
+      padding: 35px 25px;
+      text-align: center;
+      box-shadow: 0 20px 45px rgba(255, 182, 193, 0.3);
+      width: 300px;
+      border: 3px solid #ffffff;
+    }
 
-body{
-    background:linear-gradient(135deg,#87CEEB,#FFD6E7);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    overflow:hidden;
-    font-family:Arial,sans-serif;
-}
+    /* Zona táctil / interactiva */
+    .cat-container {
+      width: 230px;
+      height: 230px;
+      margin: 0 auto;
+      background: radial-gradient(circle, #ffffff 0%, #fff0f5 100%);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      box-shadow: 0 10px 25px rgba(255, 140, 180, 0.25);
+      transition: transform 0.3s ease;
+    }
 
-.contenedor{
-    text-align:center;
-}
+    svg {
+      width: 195px;
+      height: 195px;
+      overflow: visible;
+    }
 
-.gato{
-    position:relative;
-    width:220px;
-    height:260px;
-    margin:auto;
-    animation:respirar 2s infinite;
-}
+    /* ================= ANIMACIONES BASE ================= */
+    .body-group {
+      animation: breathe 3s ease-in-out infinite alternate;
+      transform-origin: 100px 140px;
+    }
 
-/* Cabeza */
-.cabeza{
-    position:absolute;
-    width:160px;
-    height:140px;
-    background:#ffcc99;
-    border-radius:50%;
-    left:30px;
-    top:0;
-}
+    @keyframes breathe {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.02) translateY(-1px); }
+    }
 
-/* Orejas */
-.oreja{
-    position:absolute;
-    width:45px;
-    height:45px;
-    background:#ffcc99;
-    transform:rotate(45deg);
-}
+    .tail {
+      transform-origin: 135px 150px;
+      animation: tailWag 3s ease-in-out infinite alternate;
+    }
 
-.izq{
-    left:25px;
-    top:-15px;
-}
+    @keyframes tailWag {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(12deg); }
+    }
 
-.der{
-    right:25px;
-    top:-15px;
-}
+    /* ================= ESTADO AL ACARICIAR (HOVER / TOUCH) ================= */
+    .purring .body-group {
+      animation: purrVibration 0.15s ease-in-out infinite alternate;
+    }
 
-/* Ojos */
-.ojo{
-    position:absolute;
-    width:18px;
-    height:18px;
-    background:#000;
-    border-radius:50%;
-    top:55px;
-}
+    .purring .tail {
+      animation: tailWagFast 0.4s ease-in-out infinite alternate;
+    }
 
-.ojo1{ left:45px; }
-.ojo2{ right:45px; }
+    .purring .head-group {
+      animation: headNuzzle 0.8s ease-in-out infinite alternate;
+    }
 
-/* Nariz */
-.nariz{
-    position:absolute;
-    width:16px;
-    height:12px;
-    background:pink;
-    left:72px;
-    top:80px;
-    border-radius:50%;
-}
+    @keyframes purrVibration {
+      0% { transform: scale(1) translateY(0); }
+      100% { transform: scale(1.01) translateY(-1.5px); }
+    }
 
-/* Boca */
-.boca{
-    position:absolute;
-    left:78px;
-    top:92px;
-    font-size:18px;
-}
+    @keyframes tailWagFast {
+      0% { transform: rotate(-5deg); }
+      100% { transform: rotate(20deg); }
+    }
 
-/* Cuerpo */
-.cuerpo{
-    position:absolute;
-    width:140px;
-    height:110px;
-    background:#ffcc99;
-    border-radius:45%;
-    left:40px;
-    top:120px;
-}
+    @keyframes headNuzzle {
+      0% { transform: rotate(-4deg); }
+      100% { transform: rotate(4deg); }
+    }
 
-/* Patas */
-.pata{
-    position:absolute;
-    width:22px;
-    height:50px;
-    background:#ffcc99;
-    border-radius:20px;
-    top:215px;
-}
+    .head-group {
+      transform-origin: 100px 100px;
+      transition: transform 0.3s ease;
+    }
 
-.p1{left:55px;}
-.p2{left:90px;}
-.p3{right:90px;}
-.p4{right:55px;}
+    .eyes-open { display: block; }
+    .eyes-happy { display: none; }
+    .blush-happy { display: none; }
 
-/* Cola */
-.cola{
-    position:absolute;
-    width:80px;
-    height:18px;
-    background:#ffcc99;
-    border-radius:20px;
-    right:-45px;
-    top:145px;
-    transform-origin:left center;
-    animation:cola 1s infinite alternate;
-}
+    .purring .eyes-open { display: none; }
+    .purring .eyes-happy { display: block; }
+    .purring .blush-happy { display: block; }
 
-button{
-    margin-top:30px;
-    padding:12px 25px;
-    border:none;
-    border-radius:15px;
-    background:#ff4f81;
-    color:white;
-    font-size:18px;
-    cursor:pointer;
-}
+    /* Corazoncito flotante */
+    .heart-float {
+      position: absolute;
+      font-size: 1.5rem;
+      pointer-events: none;
+      animation: floatUp 0.8s ease-out forwards;
+      z-index: 10;
+    }
 
-button:hover{
-    transform:scale(1.05);
-}
+    @keyframes floatUp {
+      0% { opacity: 0; transform: translateY(0) scale(0.5); }
+      50% { opacity: 1; transform: translateY(-20px) scale(1.2); }
+      100% { opacity: 0; transform: translateY(-40px) scale(1); }
+    }
 
-@keyframes cola{
-    from{transform:rotate(15deg);}
-    to{transform:rotate(-20deg);}
-}
-
-@keyframes respirar{
-    0%,100%{transform:scale(1);}
-    50%{transform:scale(1.03);}
-}
-</style>
+    p.instruction {
+      color: #888;
+      font-size: 0.95rem;
+      margin-top: 20px;
+      margin-bottom: 0;
+      font-weight: 500;
+    }
+  </style>
 </head>
 <body>
 
-<div class="contenedor">
+  <div class="card">
+    <div class="cat-container" id="catBox">
+      
+      <!-- Avatar SVG de Gatito Kawaii -->
+      <svg viewBox="0 0 200 200" id="catSvg">
+        <ellipse cx="100" cy="178" rx="50" ry="8" fill="rgba(0,0,0,0.05)" />
 
-<div class="gato">
+        <g class="body-group">
+          <!-- Cola -->
+          <path class="tail" d="M 135 150 C 175 140 180 85 155 75 C 145 70 138 82 148 92 C 162 108 145 138 130 142" fill="#ffb07c" />
 
-<div class="cabeza">
-<div class="oreja izq"></div>
-<div class="oreja der"></div>
+          <!-- Cuerpo -->
+          <ellipse cx="100" cy="142" rx="42" ry="32" fill="#ffd8b8" />
+          <ellipse cx="100" cy="144" rx="28" ry="22" fill="#ffffff" />
 
-<div class="ojo ojo1"></div>
-<div class="ojo ojo2"></div>
+          <!-- Patitas -->
+          <ellipse cx="80" cy="170" rx="10" ry="8" fill="#ffffff" />
+          <ellipse cx="120" cy="170" rx="10" ry="8" fill="#ffffff" />
 
-<div class="nariz"></div>
-<div class="boca">ᴗ</div>
+          <!-- Cabeza -->
+          <g class="head-group">
+            <path d="M 50 85 L 33 32 Q 63 42 75 70 Z" fill="#ffb07c" />
+            <path d="M 53 80 L 40 40 Q 61 48 70 70 Z" fill="#ff9ebb" />
+            <path d="M 150 85 L 167 32 Q 137 42 125 70 Z" fill="#ffb07c" />
+            <path d="M 147 80 L 160 40 Q 139 48 130 70 Z" fill="#ff9ebb" />
 
-</div>
+            <ellipse cx="100" cy="100" rx="52" ry="44" fill="#ffd8b8" />
+            <ellipse cx="68" cy="112" rx="16" ry="12" fill="#ffffff" opacity="0.7" />
+            <ellipse cx="132" cy="112" rx="16" ry="12" fill="#ffffff" opacity="0.7" />
 
-<div class="cuerpo"></div>
+            <ellipse cx="64" cy="108" rx="7" ry="4" fill="#ff8da1" opacity="0.5" />
+            <ellipse cx="136" cy="108" rx="7" ry="4" fill="#ff8da1" opacity="0.5" />
 
-<div class="pata p1"></div>
-<div class="pata p2"></div>
-<div class="pata p3"></div>
-<div class="pata p4"></div>
+            <g class="blush-happy">
+              <ellipse cx="64" cy="108" rx="10" ry="5" fill="#ff3366" opacity="0.8" />
+              <ellipse cx="136" cy="108" rx="10" ry="5" fill="#ff3366" opacity="0.8" />
+            </g>
 
-<div class="cola"></div>
+            <!-- Ojos Abiertos -->
+            <g class="eyes-open">
+              <circle cx="75" cy="98" r="8" fill="#2d221e" />
+              <circle cx="125" cy="98" r="8" fill="#2d221e" />
+              <circle cx="72" cy="95" r="3" fill="#ffffff" />
+              <circle cx="122" cy="95" r="3" fill="#ffffff" />
+            </g>
 
-</div>
+            <!-- Ojos Felices -->
+            <g class="eyes-happy">
+              <path d="M 66 98 Q 75 88 84 98" stroke="#2d221e" stroke-width="3.5" stroke-linecap="round" fill="none" />
+              <path d="M 116 98 Q 125 88 134 98" stroke="#2d221e" stroke-width="3.5" stroke-linecap="round" fill="none" />
+            </g>
 
-<button>🐾 Acariciar gatito</button>
+            <polygon points="97,105 103,105 100,108" fill="#ff5e7e" />
+            <path d="M 92 111 Q 96 117 100 112 Q 104 117 108 111" stroke="#2d221e" stroke-width="2" stroke-linecap="round" fill="none" />
 
-</div>
+            <line x1="42" y1="102" x2="20" y2="98" stroke="#ffb07c" stroke-width="2" stroke-linecap="round" />
+            <line x1="40" y1="110" x2="18" y2="112" stroke="#ffb07c" stroke-width="2" stroke-linecap="round" />
+            <line x1="158" y1="102" x2="180" y2="98" stroke="#ffb07c" stroke-width="2" stroke-linecap="round" />
+            <line x1="160" y1="110" x2="182" y2="112" stroke="#ffb07c" stroke-width="2" stroke-linecap="round" />
+          </g>
+        </g>
+      </svg>
+
+    </div>
+
+    <p class="instruction">Pasa tu dedo o cursor sobre el gatito para acariciarlo 🐾</p>
+  </div>
+
+  <script>
+    let audioCtx = null;
+    let osc = null;
+    let lfo = null;
+    let gain = null;
+    let isPurring = false;
+    let heartInterval = null;
+
+    function iniciarAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    // Inicia el sonido continuo del ronroneo
+    function empezarRonroneo() {
+      if (isPurring) return;
+      iniciarAudio();
+
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      osc = audioCtx.createOscillator();
+      gain = audioCtx.createGain();
+      lfo = audioCtx.createOscillator();
+      const lfoGain = audioCtx.createGain();
+
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(55, audioCtx.currentTime); // Tono grave de motorcito
+
+      lfo.frequency.setValueAtTime(24, audioCtx.currentTime); // Vibración constante
+      lfoGain.gain.setValueAtTime(0.09, audioCtx.currentTime);
+
+      lfo.connect(gain.gain);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 0.1);
+
+      osc.start();
+      lfo.start();
+      isPurring = true;
+    }
+
+    // Detiene el ronroneo cuando se quita el dedo/cursor
+    function detenerRonroneo() {
+      if (!isPurring) return;
+
+      if (gain) {
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+        setTimeout(() => {
+          if (osc) osc.stop();
+          if (lfo) lfo.stop();
+          isPurring = false;
+        }, 100);
+      }
+    }
+
+    const catBox = document.getElementById('catBox');
+
+    function activarAcariciado(e) {
+      catBox.classList.add('purring');
+      empezarRonroneo();
+
+      if (!heartInterval) {
+        crearCorazon(e);
+        heartInterval = setInterval(() => crearCorazon(e), 500);
+      }
+    }
+
+    function desactivarAcariciado() {
+      catBox.classList.remove('purring');
+      detenerRonroneo();
+      clearInterval(heartInterval);
+      heartInterval = null;
+    }
+
+    // EVENTOS PARA COMPUTADORA (Ratón)
+    catBox.addEventListener('mouseenter', activarAcariciado);
+    catBox.addEventListener('mouseleave', desactivarAcariciado);
+
+    // EVENTOS PARA CELULAR / TABLET (Táctil)
+    catBox.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      activarAcariciado(e.touches[0]);
+    }, { passive: false });
+
+    catBox.addEventListener('touchend', desactivarAcariciado);
+    catBox.addEventListener('touchcancel', desactivarAcariciado);
+
+    function crearCorazon(e) {
+      if (!e) return;
+      const heart = document.createElement('div');
+      heart.className = 'heart-float';
+      heart.textContent = '💖';
+
+      const rect = catBox.getBoundingClientRect();
+      const x = e.clientX ? (e.clientX - rect.left) : (rect.width / 2);
+      const y = e.clientY ? (e.clientY - rect.top) : (rect.height / 3);
+
+      heart.style.left = `${x - 10}px`;
+      heart.style.top = `${y - 10}px`;
+
+      catBox.appendChild(heart);
+      setTimeout(() => heart.remove(), 800);
+    }
+  </script>
 
 </body>
-</html><audio id="ronroneo" src="ronroneo.mp3"></audio>
+</html>
 
-<script>
-const boton = document.querySelector("button");
-const audio = document.getElementById("ronroneo");
-
-boton.addEventListener("click", ()=>{
-
-    // Reproducir ronroneo
-    audio.currentTime = 0;
-    audio.play();
-
-    // Crear corazones
-    for(let i=0;i<10;i++){
-
-        const corazon = document.createElement("div");
-        corazon.innerHTML = "❤️";
-        corazon.className = "corazon";
-
-        corazon.style.left = (window.innerWidth/2-30+Math.random()*120)+"px";
-        corazon.style.top = (window.innerHeight/2)+"px";
-
-        document.body.appendChild(corazon);
-
-        setTimeout(()=>{
-            corazon.remove();
-        },2000);
-    }
-
-});
-</script>/* Parpadeo */
-.ojo{
-    animation:parpadear 5s infinite;
-}
-
-@keyframes parpadear{
-    0%,47%,53%,100%{
-        transform:scaleY(1);
-    }
-    50%{
-        transform:scaleY(0.1);
-    }
-}
-
-/* Movimiento de orejas */
-.oreja{
-    animation:orejas 2s infinite alternate;
-    transform-origin:bottom center;
-}
-
-@keyframes orejas{
-    from{
-        transform:rotate(45deg);
-    }
-    to{
-        transform:rotate(35deg);
-    }
-}
-
-/* Corazones */
-.corazon{
-    position:fixed;
-    font-size:28px;
-    animation:subir 2s linear forwards;
-    pointer-events:none;
-}
-
-@keyframes subir{
-    from{
-        opacity:1;
-        transform:translateY(0) scale(1);
-    }
-    to{
-        opacity:0;
-        transform:translateY(-220px) scale(1.8);
-    }
-}
