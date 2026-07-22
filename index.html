@@ -3,115 +3,86 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para alguien especial ❤️</title>
+<title>Para Ti ❤️</title>
 
 <style>
 body{
     margin:0;
-    min-height:100vh;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3);
     display:flex;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(135deg,#ff9a9e,#fad0c4,#ffd1ff);
-    font-family:Arial, sans-serif;
-    overflow:hidden;
+    min-height:100vh;
+    font-family:Arial,sans-serif;
 }
 
-.contenedor{
-    text-align:center;
-    background:rgba(255,255,255,0.2);
-    backdrop-filter:blur(10px);
-    padding:30px;
-    border-radius:25px;
+.tarjeta{
     width:90%;
-    max-width:400px;
+    max-width:420px;
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(12px);
+    padding:25px;
+    border-radius:20px;
+    text-align:center;
     color:white;
-    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    box-shadow:0 0 20px rgba(0,0,0,.2);
 }
 
-h1{
-    font-size:28px;
-}
-
-p{
-    font-size:18px;
-    line-height:1.5;
+iframe{
+    width:100%;
+    height:152px;
+    border:none;
+    border-radius:12px;
+    margin:20px 0;
 }
 
 button{
-    margin-top:20px;
-    padding:12px 25px;
-    border:none;
-    border-radius:30px;
     background:white;
     color:#ff4d6d;
-    font-size:16px;
+    border:none;
+    padding:12px 25px;
+    border-radius:30px;
+    font-size:17px;
     cursor:pointer;
-    transition:0.3s;
-}
-
-button:hover{
-    transform:scale(1.1);
 }
 
 #mensaje{
-    margin-top:20px;
-    font-size:20px;
     display:none;
-}
-
-/* Corazones */
-.corazon{
-    position:absolute;
-    color:rgba(255,255,255,0.8);
-    animation:subir linear infinite;
-}
-
-@keyframes subir{
-    from{
-        transform:translateY(100vh);
-        opacity:1;
-    }
-    to{
-        transform:translateY(-100px);
-        opacity:0;
-    }
+    margin-top:20px;
+    font-size:18px;
 }
 </style>
 </head>
+
 <body>
 
-<div class="contenedor">
-    <h1>❤️ Para alguien especial ❤️</h1>
+<div class="tarjeta">
 
-    <p>
-        A veces las mejores historias comienzan con una simple conversación.
-        Tal vez apenas nos estamos conociendo, pero me gusta compartir momentos contigo.
-    </p>
+<h1>❤️ Para Ti ❤️</h1>
 
-    <button onclick="mostrarMensaje()">
-        Presiona aquí 💌
-    </button>
+<p>
+Hay personas que llegan sin esperarlo... y poco a poco se vuelven especiales. 🌹
+</p>
 
-    <div id="mensaje">
-        ✨ Me alegra conocerte y espero que podamos seguir creando bonitos momentos. ❤️
-    </div>
+<iframe
+src="https://open.spotify.com/embed/track/3oJhbB8LrDTCNj35lwdtxf?utm_source=generator"
+allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+loading="lazy">
+</iframe>
+
+<button onclick="mostrar()">
+Abrir mi mensaje 💌
+</button>
+
+<p id="mensaje">
+No sé qué pase en el futuro, pero me gusta conocerte, hablar contigo y compartir pequeños momentos como este. ❤️✨
+</p>
+
 </div>
 
 <script>
-function mostrarMensaje(){
+function mostrar(){
     document.getElementById("mensaje").style.display="block";
-}
-
-// Crear corazones
-for(let i=0;i<25;i++){
-    let corazon=document.createElement("div");
-    corazon.innerHTML="❤️";
-    corazon.className="corazon";
-    corazon.style.left=Math.random()*100+"vw";
-    corazon.style.fontSize=(15+Math.random()*25)+"px";
-    corazon.style.animationDuration=(5+Math.random()*5)+"s";
-    document.body.appendChild(corazon);
 }
 </script>
 
