@@ -3,342 +3,152 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gatito Ronroneador Melodioso 🐾</title>
+  <title>Un Juego para Ti ❤️</title>
   <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
     body {
-      font-family: 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #ffeef8 0%, #e0f2fe 100%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
       min-height: 100vh;
-      margin: 0;
-      user-select: none;
-      touch-action: manipulation;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      border-radius: 35px;
-      padding: 35px 25px;
-      text-align: center;
-      box-shadow: 0 20px 45px rgba(255, 182, 193, 0.3);
-      width: 300px;
-      border: 3px solid #ffffff;
-    }
-
-    /* Zona interactiva */
-    .cat-container {
-      width: 230px;
-      height: 230px;
-      margin: 0 auto;
-      background: radial-gradient(circle, #ffffff 0%, #fff0f5 100%);
-      border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
-      cursor: pointer;
+      margin: 0;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 450px;
+      width: 100%;
       position: relative;
-      box-shadow: 0 10px 25px rgba(255, 140, 180, 0.25);
-      transition: transform 0.3s ease;
     }
-
-    svg {
-      width: 195px;
-      height: 195px;
-      overflow: visible;
+    h1 {
+      color: #ff4b5c;
+      margin-bottom: 10px;
     }
-
-    /* Animaciones base */
-    .body-group {
-      animation: breathe 3s ease-in-out infinite alternate;
-      transform-origin: 100px 140px;
+    p {
+      color: #555;
+      font-size: 1.1em;
+      line-height: 1.5;
     }
-
-    @keyframes breathe {
+    .btn {
+      background: #ff4b5c;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-size: 1em;
+      cursor: pointer;
+      margin: 10px;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .btn:hover {
+      background: #e03a4b;
+      transform: scale(1.05);
+    }
+    .options-btn {
+      display: block;
+      width: 100%;
+      margin: 8px 0;
+      background: #f0f0f0;
+      color: #333;
+    }
+    .options-btn:hover {
+      background: #ffe3e5;
+      color: #ff4b5c;
+    }
+    .hidden {
+      display: none;
+    }
+    .heart {
+      font-size: 50px;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
       0% { transform: scale(1); }
-      100% { transform: scale(1.02) translateY(-1px); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
     }
-
-    .tail {
-      transform-origin: 135px 150px;
-      animation: tailWag 3s ease-in-out infinite alternate;
-    }
-
-    @keyframes tailWag {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(12deg); }
-    }
-
-    /* Estado al acariciar (Hover / Toque) */
-    .purring .body-group {
-      animation: purrVibration 0.15s ease-in-out infinite alternate;
-    }
-
-    .purring .tail {
-      animation: tailWagFast 0.4s ease-in-out infinite alternate;
-    }
-
-    .purring .head-group {
-      animation: headNuzzle 0.8s ease-in-out infinite alternate;
-    }
-
-    @keyframes purrVibration {
-      0% { transform: scale(1) translateY(0); }
-      100% { transform: scale(1.01) translateY(-1.5px); }
-    }
-
-    @keyframes tailWagFast {
-      0% { transform: rotate(-5deg); }
-      100% { transform: rotate(20deg); }
-    }
-
-    @keyframes headNuzzle {
-      0% { transform: rotate(-4deg); }
-      100% { transform: rotate(4deg); }
-    }
-
-    .head-group {
-      transform-origin: 100px 100px;
-      transition: transform 0.3s ease;
-    }
-
-    .eyes-open { display: block; }
-    .eyes-happy { display: none; }
-    .blush-happy { display: none; }
-
-    .purring .eyes-open { display: none; }
-    .purring .eyes-happy { display: block; }
-    .purring .blush-happy { display: block; }
-
-    /* Corazoncito flotante */
-    .heart-float {
+    #btn-no {
       position: absolute;
-      font-size: 1.5rem;
-      pointer-events: none;
-      animation: floatUp 0.8s ease-out forwards;
-      z-index: 10;
-    }
-
-    @keyframes floatUp {
-      0% { opacity: 0; transform: translateY(0) scale(0.5); }
-      50% { opacity: 1; transform: translateY(-20px) scale(1.2); }
-      100% { opacity: 0; transform: translateY(-40px) scale(1); }
-    }
-
-    p.instruction {
-      color: #888;
-      font-size: 0.95rem;
-      margin-top: 20px;
-      margin-bottom: 0;
-      font-weight: 500;
+      transition: 0.2s ease;
     }
   </style>
 </head>
 <body>
 
-  <div class="card">
-    <div class="cat-container" id="catBox">
-      
-      <!-- Avatar SVG de Gatito Kawaii -->
-      <svg viewBox="0 0 200 200" id="catSvg">
-        <ellipse cx="100" cy="178" rx="50" ry="8" fill="rgba(0,0,0,0.05)" />
+  <!-- PANTALLA INICIAL -->
+  <div id="screen-intro" class="card">
+    <div class="heart">💖</div>
+    <h1>Hola, mi niña...</h1>
+    <p>He preparado un pequeño juego interactivo diseñado solo para ti. ¿Te atreves a jugarlo?</p>
+    <button class="btn" onclick="nextScreen('screen-quiz1')">¡Comenzar! ✨</button>
+  </div>
 
-        <g class="body-group">
-          <!-- Cola -->
-          <path class="tail" d="M 135 150 C 175 140 180 85 155 75 C 145 70 138 82 148 92 C 162 108 145 138 130 142" fill="#ffb07c" />
+  <!-- TRIVIA PREGUNTA 1 -->
+  <div id="screen-quiz1" class="card hidden">
+    <h2>Nivel 1 🌹</h2>
+    <p>¿Sabes cuánto me haces sonreír cada día?</p>
+    <!-- Puedes personalizar las opciones a tu gusto -->
+    <button class="btn options-btn" onclick="nextScreen('screen-quiz2')">Un poquito 🤏</button>
+    <button class="btn options-btn" onclick="nextScreen('screen-quiz2')">Muchísimo, no hay cuenta 🥰</button>
+    <button class="btn options-btn" onclick="nextScreen('screen-quiz2')">Más que nadie en este mundo ❤️</button>
+  </div>
 
-          <!-- Cuerpo -->
-          <ellipse cx="100" cy="142" rx="42" ry="32" fill="#ffd8b8" />
-          <ellipse cx="100" cy="144" rx="28" ry="22" fill="#ffffff" />
+  <!-- TRIVIA PREGUNTA 2 -->
+  <div id="screen-quiz2" class="card hidden">
+    <h2>Nivel 2 ✨</h2>
+    <p>¿Qué es lo que más me gusta de ti?</p>
+    <!-- Personaliza estos mensajes -->
+    <button class="btn options-btn" onclick="nextScreen('screen-proposal')">Tu sonrisa hermosa 🌟</button>
+    <button class="btn options-btn" onclick="nextScreen('screen-proposal')">Tu forma de ser conmigo 💓</button>
+    <button class="btn options-btn" onclick="nextScreen('screen-proposal')">Absolutamente TODO de ti 🔥</button>
+  </div>
 
-          <!-- Patitas -->
-          <ellipse cx="80" cy="170" rx="10" ry="8" fill="#ffffff" />
-          <ellipse cx="120" cy="170" rx="10" ry="8" fill="#ffffff" />
-
-          <!-- Cabeza -->
-          <g class="head-group">
-            <path d="M 50 85 L 33 32 Q 63 42 75 70 Z" fill="#ffb07c" />
-            <path d="M 53 80 L 40 40 Q 61 48 70 70 Z" fill="#ff9ebb" />
-            <path d="M 150 85 L 167 32 Q 137 42 125 70 Z" fill="#ffb07c" />
-            <path d="M 147 80 L 160 40 Q 139 48 130 70 Z" fill="#ff9ebb" />
-
-            <ellipse cx="100" cy="100" rx="52" ry="44" fill="#ffd8b8" />
-            <ellipse cx="68" cy="112" rx="16" ry="12" fill="#ffffff" opacity="0.7" />
-            <ellipse cx="132" cy="112" rx="16" ry="12" fill="#ffffff" opacity="0.7" />
-
-            <ellipse cx="64" cy="108" rx="7" ry="4" fill="#ff8da1" opacity="0.5" />
-            <ellipse cx="136" cy="108" rx="7" ry="4" fill="#ff8da1" opacity="0.5" />
-
-            <g class="blush-happy">
-              <ellipse cx="64" cy="108" rx="10" ry="5" fill="#ff3366" opacity="0.8" />
-              <ellipse cx="136" cy="108" rx="10" ry="5" fill="#ff3366" opacity="0.8" />
-            </g>
-
-            <!-- Ojos Abiertos -->
-            <g class="eyes-open">
-              <circle cx="75" cy="98" r="8" fill="#2d221e" />
-              <circle cx="125" cy="98" r="8" fill="#2d221e" />
-              <circle cx="72" cy="95" r="3" fill="#ffffff" />
-              <circle cx="122" cy="95" r="3" fill="#ffffff" />
-            </g>
-
-            <!-- Ojos Felices -->
-            <g class="eyes-happy">
-              <path d="M 66 98 Q 75 88 84 98" stroke="#2d221e" stroke-width="3.5" stroke-linecap="round" fill="none" />
-              <path d="M 116 98 Q 125 88 134 98" stroke="#2d221e" stroke-width="3.5" stroke-linecap="round" fill="none" />
-            </g>
-
-            <polygon points="97,105 103,105 100,108" fill="#ff5e7e" />
-            <path d="M 92 111 Q 96 117 100 112 Q 104 117 108 111" stroke="#2d221e" stroke-width="2" stroke-linecap="round" fill="none" />
-
-            <line x1="42" y1="102" x2="20" y2="98" stroke="#ffb07c" stroke-width="2" stroke-linecap="round" />
-            <line x1="40" y1="110" x2="18" y2="112" stroke="#ffb07c" stroke-width="2" stroke-linecap="round" />
-            <line x1="158" y1="102" x2="180" y2="98" stroke="#ffb07c" stroke-width="2" stroke-linecap="round" />
-            <line x1="160" y1="110" x2="182" y2="112" stroke="#ffb07c" stroke-width="2" stroke-linecap="round" />
-          </g>
-        </g>
-      </svg>
-
+  <!-- PREGUNTA FINAL INTERACTIVA -->
+  <div id="screen-proposal" class="card hidden">
+    <div class="heart">💌</div>
+    <h1>Última Pregunta...</h1>
+    <p>¿Aceptas ser el amor de mi vida y dejarme cuidarte siempre?</p>
+    <div style="min-height: 80px; position: relative; margin-top: 20px;">
+      <button class="btn" onclick="nextScreen('screen-final')">¡Sí, mil veces sí! 😍</button>
+      <button id="btn-no" class="btn" style="background: #aaa;" onmouseover="moveButton()" onclick="moveButton()">No 😜</button>
     </div>
+  </div>
 
-    <p class="instruction">Pasa tu dedo o cursor sobre el gatito para acariciarlo 🐾</p>
+  <!-- PANTALLA FINAL CON CARTA -->
+  <div id="screen-final" class="card hidden">
+    <div class="heart">💖🎉</div>
+    <h1>¡Sabía que dirías que sí!</h1>
+    <p id="final-letter">
+      Gracias por regalarme la dicha de coincidir contigo. No hay nada en este mundo que me haga más feliz que verte sonreír y ganar un lugarcito en tu corazón todos los días. Eres y serás siempre mi persona favorita.
+    </p>
+    <p style="font-weight: bold; color: #ff4b5c;">¡Te amo infinitamente! ❤️</p>
   </div>
 
   <script>
-    let audioCtx = null;
-    let noiseNode = null;
-    let filterNode = null;
-    let lfoNode = null;
-    let lfoGain = null;
-    let gainNode = null;
-    let isPurring = false;
-    let heartInterval = null;
-
-    function iniciarAudio() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
+    function nextScreen(screenId) {
+      // Ocultar todas las tarjetas
+      document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
+      // Mostrar la tarjeta seleccionada
+      document.getElementById(screenId).classList.remove('hidden');
     }
 
-    // Generador de ronroneo realista usando ruido filtrado (Suena hermoso y natural)
-    function empezarRonroneo() {
-      if (isPurring) return;
-      iniciarAudio();
-
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
-
-      // 1. Crear buffer de ruido rosa/marrón (suave y grave como un gatito)
-      const bufferSize = audioCtx.sampleRate * 2;
-      const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-      const output = noiseBuffer.getChannelData(0);
-      let lastOut = 0.0;
+    // Función para hacer huir al botón "No"
+    function moveButton() {
+      const btnNo = document.getElementById('btn-no');
+      const x = Math.random() * (window.innerWidth - 150) - (window.innerWidth / 2 - 100);
+      const y = Math.random() * (window.innerHeight - 150) - (window.innerHeight / 2 - 100);
       
-      for (let i = 0; i < bufferSize; i++) {
-        const white = Math.random() * 2 - 1;
-        output[i] = (lastOut + (0.02 * white)) / 1.02; // Filtro interno para calentar el sonido
-        lastOut = output[i];
-      }
-
-      noiseNode = audioCtx.createBufferSource();
-      noiseNode.buffer = noiseBuffer;
-      noiseNode.loop = true;
-
-      // 2. Filtro de paso bajo para darle la textura cálida de pecho de gato
-      filterNode = audioCtx.createBiquadFilter();
-      filterNode.type = 'lowpass';
-      filterNode.frequency.setValueAtTime(120, audioCtx.currentTime);
-
-      // 3. LFO (Oscilador de baja frecuencia) para simular el ritmo respiratorio de inhalar/exhalar del ronroneo
-      lfoNode = audioCtx.createOscillator();
-      lfoNode.frequency.setValueAtTime(26, audioCtx.currentTime); // Velocidad del ronroneo
-      lfoGain = audioCtx.createGain();
-      lfoGain.gain.setValueAtTime(45, audioCtx.currentTime); // Profundidad de la vibración
-
-      lfoNode.connect(lfoGain);
-      lfoGain.connect(filterNode.frequency);
-
-      // 4. Control de volumen general
-      gainNode = audioCtx.createGain();
-      gainNode.gain.setValueAtTime(0.01, audioCtx.currentTime);
-      gainNode.gain.linearRampToValueAtTime(0.35, audioCtx.currentTime + 0.2); // Sube suavemente
-
-      // Conexiones
-      noiseNode.connect(filterNode);
-      filterNode.connect(gainNode);
-      gainNode.connect(audioCtx.destination);
-
-      noiseNode.start();
-      lfoNode.start();
-      isPurring = true;
-    }
-
-    // Detener suavemente el ronroneo
-    function detenerRonroneo() {
-      if (!isPurring) return;
-
-      if (gainNode) {
-        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
-        setTimeout(() => {
-          if (noiseNode) { noiseNode.stop(); noiseNode.disconnect(); }
-          if (lfoNode) { lfoNode.stop(); lfoNode.disconnect(); }
-          isPurring = false;
-        }, 150);
-      }
-    }
-
-    const catBox = document.getElementById('catBox');
-
-    function activarAcariciado(e) {
-      catBox.classList.add('purring');
-      empezarRonroneo();
-
-      if (!heartInterval) {
-        crearCorazon(e);
-        heartInterval = setInterval(() => crearCorazon(e), 500);
-      }
-    }
-
-    function desactivarAcariciado() {
-      catBox.classList.remove('purring');
-      detenerRonroneo();
-      clearInterval(heartInterval);
-      heartInterval = null;
-    }
-
-    // Eventos de ratón
-    catBox.addEventListener('mouseenter', activarAcariciado);
-    catBox.addEventListener('mouseleave', desactivarAcariciado);
-
-    // Eventos táctiles para celular
-    catBox.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      activarAcariciado(e.touches[0]);
-    }, { passive: false });
-
-    catBox.addEventListener('touchend', desactivarAcariciado);
-    catBox.addEventListener('touchcancel', desactivarAcariciado);
-
-    function crearCorazon(e) {
-      if (!e) return;
-      const heart = document.createElement('div');
-      heart.className = 'heart-float';
-      heart.textContent = '💖';
-
-      const rect = catBox.getBoundingClientRect();
-      const x = e.clientX ? (e.clientX - rect.left) : (rect.width / 2);
-      const y = e.clientY ? (e.clientY - rect.top) : (rect.height / 3);
-
-      heart.style.left = `${x - 10}px`;
-      heart.style.top = `${y - 10}px`;
-
-      catBox.appendChild(heart);
-      setTimeout(() => heart.remove(), 800);
+      btnNo.style.transform = `translate(${x}px, ${y}px)`;
     }
   </script>
-
 </body>
 </html>
+
